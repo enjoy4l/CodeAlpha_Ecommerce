@@ -1,5 +1,33 @@
 const productGrid = document.querySelector('#product-grid');
 const statusMessage = document.querySelector('#status');
+const authNav = document.querySelector('#auth-nav');
+
+function logout() {
+  localStorage.removeItem('token');
+  window.location.href = 'index.html';
+}
+
+function renderAuthNavigation() {
+  if (localStorage.getItem('token')) {
+    const logoutButton = document.createElement('button');
+    logoutButton.className = 'link-button';
+    logoutButton.type = 'button';
+    logoutButton.textContent = 'Logout';
+    logoutButton.addEventListener('click', logout);
+    authNav.replaceChildren(logoutButton);
+    return;
+  }
+
+  const loginLink = document.createElement('a');
+  loginLink.href = 'login.html';
+  loginLink.textContent = 'Login';
+
+  const registerLink = document.createElement('a');
+  registerLink.href = 'register.html';
+  registerLink.textContent = 'Register';
+
+  authNav.replaceChildren(loginLink, registerLink);
+}
 
 function createProductCard(product) {
   const card = document.createElement('a');
@@ -38,4 +66,5 @@ async function loadProducts() {
   }
 }
 
+renderAuthNavigation();
 loadProducts();
