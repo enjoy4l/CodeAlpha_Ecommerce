@@ -9,12 +9,16 @@ function logout() {
 
 function renderAuthNavigation() {
   if (localStorage.getItem('token')) {
+    const cartLink = document.createElement('a');
+    cartLink.href = 'cart.html';
+    cartLink.textContent = 'Cart';
+
     const logoutButton = document.createElement('button');
     logoutButton.className = 'link-button';
     logoutButton.type = 'button';
     logoutButton.textContent = 'Logout';
     logoutButton.addEventListener('click', logout);
-    authNav.replaceChildren(logoutButton);
+    authNav.replaceChildren(cartLink, logoutButton);
     return;
   }
 

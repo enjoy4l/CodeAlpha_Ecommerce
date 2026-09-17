@@ -9,12 +9,13 @@
 <body>
   <header class="site-header">
     <a class="brand" href="/">Abi's Electronics</a>
-    <a href="/">Back to products</a>
+    <nav id="auth-nav" class="auth-nav" aria-label="Account navigation"></nav>
   </header>
 
   <main class="container">
     <p id="status" class="status" role="status">Loading product...</p>
     <article id="product-detail" class="product-detail" hidden></article>
+    <p id="cart-message" class="form-message" role="status" hidden></p>
   </main>
 
   <script src="product.js"></script>
