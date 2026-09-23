@@ -3,23 +3,104 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Abi's Electronics - Products</title>
+  <title>HomeCore | Appliances & Electronics</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+  <div class="topbar">
+    <p>Free delivery on essentials over $150</p>
+  </div>
+
   <header class="site-header">
-    <a class="brand" href="/">Abi's Electronics</a>
+    <a class="brand" href="/" aria-label="HomeCore home">HomeCore</a>
+    <nav class="main-nav" aria-label="Main navigation">
+      <a href="#featured">Refrigeration</a>
+      <a href="#featured">Kitchen</a>
+      <a href="#featured">Entertainment</a>
+      <a href="#featured">Home Care</a>
+    </nav>
     <nav id="auth-nav" class="auth-nav" aria-label="Account navigation"></nav>
   </header>
 
-  <main class="container">
-    <section class="intro">
-      <p class="eyebrow">Product collection</p>
-      <h1>Everyday essentials.</h1>
-      <p>Browse the latest products in our store.</p>
+  <main>
+    <section class="hero">
+      <div class="hero__content">
+        <p class="eyebrow">Built for modern living</p>
+        <h1>Upgrade the way your home works.</h1>
+        <p class="hero__text">Powerful appliances and home essentials designed for comfort, efficiency, and everyday performance.</p>
+        <div class="hero__actions">
+          <a class="btn btn--primary" href="#featured">Shop essentials</a>
+          <a class="btn btn--secondary" href="#featured">Browse deals</a>
+        </div>
+        <ul class="hero__meta" aria-label="Store highlights">
+          <li>Next-day delivery</li>
+          <li>Expert installation</li>
+          <li>2-year warranty</li>
+        </ul>
+      </div>
+
+      <div class="hero__visual" aria-label="Featured appliance image">
+        <div class="hero__panel hero__panel--main">
+          <img src="https://images.unsplash.com/photo-1585518419759-7fe2e0fbf8a6?auto=format&fit=crop&w=1000&q=80" alt="Modern kitchen appliances and refrigerator">
+        </div>
+        <div class="hero__panel hero__panel--accent">
+          <span>Featured tech</span>
+          <strong>French Door Fridge</strong>
+          <em>$1,899</em>
+        </div>
+      </div>
     </section>
-    <p id="status" class="status" role="status">Loading products...</p>
-    <section id="product-grid" class="product-grid" aria-label="Products"></section>
+
+    <section class="trust-bar" aria-label="Brand promises">
+      <div><strong>4.9/5</strong><span>Customer rating</span></div>
+      <div><strong>Same-day</strong><span>Delivery options</span></div>
+      <div><strong>30-day</strong><span>Easy returns</span></div>
+      <div><strong>Local</strong><span>Support team</span></div>
+    </section>
+
+    <section class="category-strip" aria-label="Product categories">
+      <article class="category-card category-card--blue">
+        <span class="category-label">Refrigeration</span>
+        <h3>Fresh storage, smarter living.</h3>
+        <a href="#featured">Explore now</a>
+      </article>
+      <article class="category-card category-card--charcoal">
+        <span class="category-label">Kitchen</span>
+        <h3>Powerful prep for busy homes.</h3>
+        <a href="#featured">View kitchen</a>
+      </article>
+      <article class="category-card category-card--steel">
+        <span class="category-label">Entertainment</span>
+        <h3>Clearer viewing, richer sound.</h3>
+        <a href="#featured">Shop screens</a>
+      </article>
+      <article class="category-card category-card--sand">
+        <span class="category-label">Home care</span>
+        <h3>Effortless cleanup, better routines.</h3>
+        <a href="#featured">See essentials</a>
+      </article>
+    </section>
+
+    <section class="collection-header" id="featured">
+      <div>
+        <p class="eyebrow eyebrow--dark">Top picks</p>
+        <h2>Everything your home needs to run smoothly.</h2>
+      </div>
+      <div class="tag-list" aria-label="Categories">
+        <button type="button" class="tag active">All</button>
+        <button type="button" class="tag">Best sellers</button>
+        <button type="button" class="tag">Kitchen</button>
+        <button type="button" class="tag">Home Tech</button>
+      </div>
+    </section>
+
+    <section class="container catalog-area">
+      <p id="status" class="status" role="status">Loading products...</p>
+      <section id="product-grid" class="product-grid" aria-label="Products"></section>
+    </section>
   </main>
 
   <script src="app.js"></script>

@@ -16,6 +16,37 @@ function showMessage(message, isError = false) {
   cartMessage.classList.toggle('error', isError);
 }
 
+function showCheckoutConfirmation(order) {
+  cartItems.hidden = true;
+  cartSummary.hidden = true;
+  cartStatus.hidden = true;
+  cartMessage.classList.remove('error');
+  cartMessage.textContent = `Order confirmed: ${order._id}. Total: $${Number(order.totalAmount).toFixed(2)}`;
+  cartMessage.hidden = false;
+
+  const confirmationActions = document.createElement('div');
+  confirmationActions.className = 'confirmation-actions';
+
+  const continueShoppingButton = document.createElement('button');
+  continueShoppingButton.className = 'primary-button';
+  continueShoppingButton.type = 'button';
+  continueShoppingButton.textContent = 'Continue Shopping';
+  continueShoppingButton.addEventListener('click', () => {
+    window.location.href = 'index.html';
+  });
+
+  const ordersButton = document.createElement('button');
+  ordersButton.className = 'primary-button';
+  ordersButton.type = 'button';
+  ordersButton.textContent = 'View My Orders';
+  ordersButton.addEventListener('click', () => {
+    window.location.href = 'index.html';
+  });
+
+  confirmationActions.append(continueShoppingButton, ordersButton);
+  cartMessage.insertAdjacentElement('afterend', confirmationActions);
+}
+
 function renderCart(cart) {
   cartItems.replaceChildren();
 
@@ -156,13 +187,8 @@ async function checkout() {
       throw new Error(order.message || 'Checkout failed.');
     }
 
-    showMessage(`Order confirmed: ${order._id}. Total: $${Number(order.totalAmount).toFixed(2)}`);
-    cartSummary.hidden = true;
     cartItems.replaceChildren();
-    cartStatus.textContent = 'Thank you for your order.';
-    window.setTimeout(() => {
-      window.location.href = 'index.html';
-    }, 3000);
+    showCheckoutConfirmation(order);
   } catch (error) {
     checkoutButton.disabled = false;
     showMessage(error.message, true);
