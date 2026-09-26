@@ -80,14 +80,18 @@ async function loadProducts() {
 
     const products = await response.json();
     productGrid.replaceChildren(...products.map(createProductCard));
-    statusMessage.textContent = `${products.length} products available`;
+    if (statusMessage) {
+      statusMessage.textContent = `${products.length} products available`;
+    }
   } catch (error) {
-    statusMessage.textContent = 'Products could not be loaded. Please try again.';
-    statusMessage.classList.add('error');
+    if (statusMessage) {
+      statusMessage.textContent = 'Products could not be loaded. Please try again.';
+      statusMessage.classList.add('error');
+    }
   }
 }
 
 renderAuthNavigation();
-if (productGrid && statusMessage) {
+if (productGrid) {
   loadProducts();
 }
