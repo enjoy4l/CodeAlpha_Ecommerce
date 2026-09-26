@@ -62,7 +62,7 @@ function createProductCard(product) {
 
   const price = document.createElement('p');
   price.className = 'price';
-  price.textContent = `$${Number(product.price).toFixed(2)}`;
+  price.textContent = `GH₵${Number(product.price).toFixed(2)}`;
 
   meta.append(badge, price);
   body.append(name, description, meta);

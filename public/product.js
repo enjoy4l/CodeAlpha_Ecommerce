@@ -80,7 +80,7 @@ function renderProduct(product) {
 
   const price = document.createElement('p');
   price.className = 'detail-price';
-  price.textContent = `$${Number(product.price).toFixed(2)}`;
+  price.textContent = `GH₵${Number(product.price).toFixed(2)}`;
 
   const description = document.createElement('p');
   description.textContent = product.description || 'No description available.';

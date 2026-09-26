@@ -21,7 +21,7 @@ function showCheckoutConfirmation(order) {
   cartSummary.hidden = true;
   cartStatus.hidden = true;
   cartMessage.classList.remove('error');
-  cartMessage.textContent = `Order confirmed: ${order._id}. Total: $${Number(order.totalAmount).toFixed(2)}`;
+  cartMessage.textContent = `Order confirmed: ${order._id}. Total: GH₵${Number(order.totalAmount).toFixed(2)}`;
   cartMessage.hidden = false;
 
   const confirmationActions = document.createElement('div');
@@ -77,7 +77,7 @@ function renderCart(cart) {
 
     const price = document.createElement('p');
     price.className = 'price';
-    price.textContent = `$${Number(product.price).toFixed(2)} each`;
+    price.textContent = `GH₵${Number(product.price).toFixed(2)} each`;
 
     const quantityLabel = document.createElement('label');
     quantityLabel.textContent = 'Quantity';
@@ -89,7 +89,7 @@ function renderCart(cart) {
     quantityLabel.append(quantityInput);
 
     const subtotalText = document.createElement('p');
-    subtotalText.textContent = `Subtotal: $${subtotal.toFixed(2)}`;
+    subtotalText.textContent = `Subtotal: GH₵${subtotal.toFixed(2)}`;
 
     const removeButton = document.createElement('button');
     removeButton.className = 'text-button';
@@ -103,7 +103,7 @@ function renderCart(cart) {
   });
 
   cartStatus.textContent = `${cart.items.length} item${cart.items.length === 1 ? '' : 's'} in your cart`;
-  cartTotalAmount.textContent = `$${total.toFixed(2)}`;
+  cartTotalAmount.textContent = `GH₵${total.toFixed(2)}`;
   cartSummary.hidden = false;
 }
 
