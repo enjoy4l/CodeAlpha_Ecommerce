@@ -9,6 +9,10 @@ const detailsDescription = document.querySelector('#details-description');
 const specProductName = document.querySelector('#spec-product-name');
 const specCategory = document.querySelector('#spec-category');
 const specStock = document.querySelector('#spec-stock');
+const relatedProducts = document.querySelector('#related-products');
+const relatedGrid = document.querySelector('#related-grid');
+const relatedPrevious = document.querySelector('#related-previous');
+const relatedNext = document.querySelector('#related-next');
 const productId = new URLSearchParams(window.location.search).get('id');
 
 function activateTab(tabName) {
@@ -57,6 +61,62 @@ function showCartMessage(message, isError = false) {
   cartMessage.textContent = message;
   cartMessage.hidden = false;
   cartMessage.classList.toggle('error', isError);
+}
+
+function createRelatedCard(product) {
+  const card = document.createElement('a');
+  card.className = 'product-card';
+  card.href = `/product.html?id=${encodeURIComponent(product._id)}`;
+
+  const image = document.createElement('img');
+  image.src = product.imageUrl || 'https://placehold.co/600x600?text=Abi%27s';
+  image.alt = product.name;
+
+  const body = document.createElement('div');
+  body.className = 'product-card__body';
+
+  const name = document.createElement('h2');
+  name.textContent = product.name;
+
+  const meta = document.createElement('div');
+  meta.className = 'product-card__meta';
+
+  const badge = document.createElement('span');
+  badge.className = 'product-card__badge';
+  badge.textContent = product.category;
+
+  const price = document.createElement('p');
+  price.className = 'price';
+  price.textContent = `GH₵${Number(product.price).toFixed(2)}`;
+
+  meta.append(badge, price);
+  body.append(name, meta);
+  card.append(image, body);
+  return card;
+}
+
+function slideRelatedProducts(direction) {
+  const viewport = relatedGrid;
+  viewport.scrollBy({ left: direction * viewport.clientWidth, behavior: 'smooth' });
+}
+
+async function loadRelatedProducts(product) {
+  try {
+    const response = await fetch('/api/products');
+    if (!response.ok) throw new Error('Related product request failed.');
+
+    const products = await response.json();
+    const alternatives = products.filter(item => item._id !== product._id);
+    const sameCategory = alternatives.filter(item => item.category === product.category);
+    const otherProducts = alternatives.filter(item => item.category !== product.category);
+    const related = [...sameCategory, ...otherProducts].slice(0, 10);
+
+    if (!related.length) return;
+    relatedGrid.replaceChildren(...related.map(createRelatedCard));
+    relatedProducts.hidden = false;
+  } catch (error) {
+    relatedProducts.hidden = true;
+  }
 }
 
 async function addToCart() {
@@ -139,7 +199,9 @@ async function loadProduct() {
       throw new Error('Product request failed.');
     }
 
-    renderProduct(await response.json());
+    const product = await response.json();
+    renderProduct(product);
+    loadRelatedProducts(product);
   } catch (error) {
     statusMessage.textContent = 'This product could not be loaded.';
     statusMessage.classList.add('error');
@@ -149,6 +211,9 @@ async function loadProduct() {
 tabButtons.forEach(button => {
   button.addEventListener('click', () => activateTab(button.dataset.tab));
 });
+
+relatedPrevious.addEventListener('click', () => slideRelatedProducts(-1));
+relatedNext.addEventListener('click', () => slideRelatedProducts(1));
 
 renderAuthNavigation();
 loadProduct();

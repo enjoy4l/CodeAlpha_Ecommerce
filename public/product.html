@@ -8,22 +8,12 @@
 </head>
 <body>
   <header class="site-header">
-    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="category-menu" aria-label="Open categories">
-      <span></span><span></span><span></span>
-    </button>
     <a class="brand" href="/" aria-label="Abi's home">Abi's</a>
     <form class="search-field header-search" action="products.html" method="get">
       <label for="product-search">Search</label>
       <input id="product-search" name="search" type="search" placeholder="Search products" autocomplete="off">
     </form>
     <nav id="auth-nav" class="auth-nav" aria-label="Account navigation"></nav>
-    <nav id="category-menu" class="category-menu" aria-label="Category menu" hidden>
-      <a href="products.html">Shop all</a>
-      <a href="products.html?category=Refrigeration">Refrigeration</a>
-      <a href="products.html?category=Kitchen">Kitchen</a>
-      <a href="products.html?category=Entertainment">Entertainment</a>
-      <a href="products.html?category=Cleaning">Home care</a>
-    </nav>
   </header>
 
   <main class="container">
@@ -83,6 +73,21 @@
         </div>
       </div>
     </section>
+    <section id="related-products" class="related-products" hidden>
+      <div class="related-heading">
+        <div>
+          <p class="eyebrow">Keep exploring</p>
+          <h2>You might also like.</h2>
+        </div>
+        <div class="carousel-controls" aria-label="Related products carousel controls">
+          <button id="related-previous" class="carousel-button" type="button" aria-label="Previous related products">&#8592;</button>
+          <button id="related-next" class="carousel-button" type="button" aria-label="Next related products">&#8594;</button>
+        </div>
+      </div>
+      <div class="related-carousel">
+        <div id="related-grid" class="related-grid" aria-label="Related products"></div>
+      </div>
+    </section>
     <p id="cart-message" class="form-message" role="status" hidden></p>
   </main>
 
@@ -100,7 +105,6 @@
     </div>
   </footer>
 
-  <script src="menu.js"></script>
   <script src="product.js"></script>
 </body>
 </html>

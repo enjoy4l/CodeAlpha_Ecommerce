@@ -60,15 +60,12 @@ function createProductCard(product) {
   const name = document.createElement('h2');
   name.textContent = product.name;
 
-  const description = document.createElement('p');
-  description.textContent = product.description || 'Designed for efficient everyday performance.';
-
   const price = document.createElement('p');
   price.className = 'price';
   price.textContent = `GH₵${Number(product.price).toFixed(2)}`;
 
   meta.append(badge, price);
-  body.append(name, description, meta);
+  body.append(name, meta);
   card.append(image, body);
   return card;
 }
