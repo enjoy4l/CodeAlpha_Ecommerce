@@ -8,8 +8,18 @@
 </head>
 <body>
   <header class="site-header">
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="category-menu" aria-label="Open categories">
+      <span></span><span></span><span></span>
+    </button>
     <a class="brand" href="/">Abi's Electronics</a>
     <a href="/">Continue shopping</a>
+    <nav id="category-menu" class="category-menu" aria-label="Category menu" hidden>
+      <a href="products.html">Shop all</a>
+      <a href="products.html?category=Refrigeration">Refrigeration</a>
+      <a href="products.html?category=Kitchen">Kitchen</a>
+      <a href="products.html?category=Entertainment">Entertainment</a>
+      <a href="products.html?category=Cleaning">Home care</a>
+    </nav>
   </header>
 
   <main class="container">
@@ -41,6 +51,7 @@
     </div>
   </footer>
 
+  <script src="menu.js"></script>
   <script src="cart.js"></script>
 </body>
 </html>

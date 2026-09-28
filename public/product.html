@@ -8,13 +8,81 @@
 </head>
 <body>
   <header class="site-header">
-    <a class="brand" href="/">Abi's Electronics</a>
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="category-menu" aria-label="Open categories">
+      <span></span><span></span><span></span>
+    </button>
+    <a class="brand" href="/" aria-label="Abi's home">Abi's</a>
+    <form class="search-field header-search" action="products.html" method="get">
+      <label for="product-search">Search</label>
+      <input id="product-search" name="search" type="search" placeholder="Search products" autocomplete="off">
+    </form>
     <nav id="auth-nav" class="auth-nav" aria-label="Account navigation"></nav>
+    <nav id="category-menu" class="category-menu" aria-label="Category menu" hidden>
+      <a href="products.html">Shop all</a>
+      <a href="products.html?category=Refrigeration">Refrigeration</a>
+      <a href="products.html?category=Kitchen">Kitchen</a>
+      <a href="products.html?category=Entertainment">Entertainment</a>
+      <a href="products.html?category=Cleaning">Home care</a>
+    </nav>
   </header>
 
   <main class="container">
+    <a class="btn btn--secondary back-link" href="products.html">Back to products</a>
     <p id="status" class="status" role="status">Loading product...</p>
     <article id="product-detail" class="product-detail" hidden></article>
+    <section id="product-tabs" class="product-tabs" hidden>
+      <div class="product-tab-list" role="tablist" aria-label="Product information">
+        <button class="product-tab-button active" type="button" role="tab" aria-selected="true" aria-controls="details-panel" data-tab="details">Product details</button>
+        <button class="product-tab-button" type="button" role="tab" aria-selected="false" aria-controls="specifications-panel" data-tab="specifications">Specifications</button>
+        <button class="product-tab-button" type="button" role="tab" aria-selected="false" aria-controls="reviews-panel" data-tab="reviews">Customer reviews</button>
+      </div>
+
+      <div id="details-panel" class="product-tab-panel" role="tabpanel">
+        <h2 id="details-heading">Made for everyday living.</h2>
+        <p id="details-description"></p>
+        <ul class="detail-highlights">
+          <li>Thoughtful design for everyday homes</li>
+          <li>Reliable performance and simple controls</li>
+          <li>Supported by the Abi's service team</li>
+        </ul>
+      </div>
+
+      <div id="specifications-panel" class="product-tab-panel" role="tabpanel" hidden>
+        <h2>At a glance.</h2>
+        <dl class="spec-list">
+          <div><dt>Product</dt><dd id="spec-product-name"></dd></div>
+          <div><dt>Category</dt><dd id="spec-category"></dd></div>
+          <div><dt>Availability</dt><dd id="spec-stock"></dd></div>
+          <div><dt>Delivery</dt><dd>Next-day options available</dd></div>
+          <div><dt>Warranty</dt><dd>2-year manufacturer warranty</dd></div>
+          <div><dt>Support</dt><dd>Local Abi's support team</dd></div>
+        </dl>
+      </div>
+
+      <div id="reviews-panel" class="product-tab-panel" role="tabpanel" hidden>
+        <div class="review-summary">
+          <strong>4.8 / 5</strong>
+          <span>Based on verified customer reviews</span>
+        </div>
+        <div class="review-list">
+          <article class="review">
+            <strong>Reliable and easy to use</strong>
+            <p>"The controls are straightforward and the delivery was right on time."</p>
+            <span>Amelia K. · Verified buyer</span>
+          </article>
+          <article class="review">
+            <strong>Good value for the home</strong>
+            <p>"It feels well made and does exactly what we needed for our family."</p>
+            <span>David T. · Verified buyer</span>
+          </article>
+          <article class="review">
+            <strong>Helpful support</strong>
+            <p>"The Abi's team answered my questions quickly before I ordered."</p>
+            <span>Grace M. · Verified buyer</span>
+          </article>
+        </div>
+      </div>
+    </section>
     <p id="cart-message" class="form-message" role="status" hidden></p>
   </main>
 
@@ -32,6 +100,7 @@
     </div>
   </footer>
 
+  <script src="menu.js"></script>
   <script src="product.js"></script>
 </body>
 </html>

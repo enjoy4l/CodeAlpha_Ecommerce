@@ -2,7 +2,26 @@ const statusMessage = document.querySelector('#status');
 const productDetail = document.querySelector('#product-detail');
 const cartMessage = document.querySelector('#cart-message');
 const authNav = document.querySelector('#auth-nav');
+const productTabs = document.querySelector('#product-tabs');
+const tabButtons = document.querySelectorAll('.product-tab-button');
+const tabPanels = document.querySelectorAll('.product-tab-panel');
+const detailsDescription = document.querySelector('#details-description');
+const specProductName = document.querySelector('#spec-product-name');
+const specCategory = document.querySelector('#spec-category');
+const specStock = document.querySelector('#spec-stock');
 const productId = new URLSearchParams(window.location.search).get('id');
+
+function activateTab(tabName) {
+  tabButtons.forEach(button => {
+    const isActive = button.dataset.tab === tabName;
+    button.classList.toggle('active', isActive);
+    button.setAttribute('aria-selected', String(isActive));
+  });
+
+  tabPanels.forEach(panel => {
+    panel.hidden = panel.id !== `${tabName}-panel`;
+  });
+}
 
 function logout() {
   localStorage.removeItem('token');
@@ -97,7 +116,12 @@ function renderProduct(product) {
 
   content.append(heading, price, description, stock, addButton);
   productDetail.append(image, content);
+  detailsDescription.textContent = product.description || 'Designed for efficient everyday performance.';
+  specProductName.textContent = product.name;
+  specCategory.textContent = product.category || 'Home appliances';
+  specStock.textContent = `${product.stock} available`;
   productDetail.hidden = false;
+  productTabs.hidden = false;
   statusMessage.hidden = true;
 }
 
@@ -121,6 +145,10 @@ async function loadProduct() {
     statusMessage.classList.add('error');
   }
 }
+
+tabButtons.forEach(button => {
+  button.addEventListener('click', () => activateTab(button.dataset.tab));
+});
 
 renderAuthNavigation();
 loadProduct();

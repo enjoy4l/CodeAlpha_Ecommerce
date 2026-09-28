@@ -14,7 +14,10 @@
     <p>Free delivery on essentials over GH₵3500</p>
   </div>
 
-  <header class="site-header">
+  <header class="site-header home-header">
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="category-menu" aria-label="Open categories">
+      <span></span><span></span><span></span>
+    </button>
     <a class="brand" href="/" aria-label="Abi's home">Abi's</a>
     <nav class="main-nav" aria-label="Main navigation">
       <a href="products.html?category=Refrigeration">Refrigeration</a>
@@ -23,6 +26,13 @@
       <a href="products.html?category=Cleaning">Home Care</a>
     </nav>
     <nav id="auth-nav" class="auth-nav" aria-label="Account navigation"></nav>
+    <nav id="category-menu" class="category-menu" aria-label="Category menu" hidden>
+      <a href="products.html">Shop all</a>
+      <a href="products.html?category=Refrigeration">Refrigeration</a>
+      <a href="products.html?category=Kitchen">Kitchen</a>
+      <a href="products.html?category=Entertainment">Entertainment</a>
+      <a href="products.html?category=Cleaning">Home care</a>
+    </nav>
   </header>
 
   <main>
@@ -118,6 +128,7 @@
     </div>
   </footer>
 
+  <script src="menu.js"></script>
   <script src="app.js"></script>
 </body>
 </html>

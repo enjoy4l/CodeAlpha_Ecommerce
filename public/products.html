@@ -11,12 +11,22 @@
 </head>
 <body>
   <header class="site-header">
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="category-menu" aria-label="Open categories">
+      <span></span><span></span><span></span>
+    </button>
     <a class="brand" href="/" aria-label="Abi's home">Abi's</a>
     <label class="search-field header-search" for="product-search">
       <span aria-hidden="true">Search</span>
       <input id="product-search" type="search" placeholder="Search products" autocomplete="off">
     </label>
     <nav id="auth-nav" class="auth-nav" aria-label="Account navigation"></nav>
+    <nav id="category-menu" class="category-menu" aria-label="Category menu" hidden>
+      <a href="products.html">Shop all</a>
+      <a href="products.html?category=Refrigeration">Refrigeration</a>
+      <a href="products.html?category=Kitchen">Kitchen</a>
+      <a href="products.html?category=Entertainment">Entertainment</a>
+      <a href="products.html?category=Cleaning">Home care</a>
+    </nav>
   </header>
 
   <main class="shop-page container">
@@ -53,10 +63,10 @@
   <footer class="site-footer">
     <nav class="footer-links" aria-label="Footer navigation">
       <a href="/">About</a>
-      <a href="products.html">Shop all</a>
-      <a href="products.html?category=Kitchen">Kitchen</a>
-      <a href="products.html?category=Entertainment">Entertainment</a>
-      <a href="products.html?category=Cleaning">Home care</a>
+      <a href="/">How it works</a>
+      <a href="/">Community</a>
+      <a href="/">Privacy Policy</a>
+      <a href="/">Terms of Service</a>
     </nav>
     <div class="footer-meta">
       <p>Secure shopping and reliable support for every home.</p>
@@ -64,6 +74,7 @@
     </div>
   </footer>
 
+  <script src="menu.js"></script>
   <script src="products.js"></script>
 </body>
 </html>
