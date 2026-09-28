@@ -1,6 +1,8 @@
 const productGrid = document.querySelector('#product-grid');
 const statusMessage = document.querySelector('#status');
 const authNav = document.querySelector('#auth-nav');
+const filterButtons = document.querySelectorAll('.filter-bar .tag');
+let catalogProducts = [];
 
 function logout() {
   localStorage.removeItem('token');
@@ -78,10 +80,10 @@ async function loadProducts() {
       throw new Error('Product request failed.');
     }
 
-    const products = await response.json();
-    productGrid.replaceChildren(...products.map(createProductCard));
+    catalogProducts = (await response.json()).slice(0, 6);
+    renderProducts('All');
     if (statusMessage) {
-      statusMessage.textContent = `${products.length} products available`;
+      statusMessage.textContent = `${catalogProducts.length} products available`;
     }
   } catch (error) {
     if (statusMessage) {
@@ -95,3 +97,19 @@ renderAuthNavigation();
 if (productGrid) {
   loadProducts();
 }
+
+function renderProducts(category) {
+  const products = category === 'All'
+    ? catalogProducts
+    : catalogProducts.filter(product => product.category === category);
+
+  productGrid.replaceChildren(...products.map(createProductCard));
+}
+
+filterButtons.forEach(button => {
+  button.addEventListener('click', () => {
+    filterButtons.forEach(filterButton => filterButton.classList.remove('active'));
+    button.classList.add('active');
+    renderProducts(button.textContent.trim());
+  });
+});

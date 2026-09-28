@@ -8,6 +8,11 @@ const productSchema = new mongoose.Schema({
   description: {
     type: String
   },
+  category: {
+    type: String,
+    required: true,
+    enum: ['Laundry', 'Kitchen', 'Entertainment', 'Cooling', 'Refrigeration', 'Cleaning']
+  },
   price: {
     type: Number,
     required: true

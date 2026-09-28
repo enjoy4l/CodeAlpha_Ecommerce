@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800">
+<defs><linearGradient id="jar" x1="0" x2="1"><stop stop-color="#b9d2d7" stop-opacity=".8"/><stop offset="1" stop-color="#557f8e" stop-opacity=".9"/></linearGradient></defs>
+<rect width="800" height="800" fill="#eef2f4"/><ellipse cx="400" cy="655" rx="190" ry="22" fill="#cbd3d8" opacity=".55"/>
+<path d="M285 215h230l-25 285c-5 45-39 75-90 75s-85-30-90-75l-25-285Z" fill="url(#jar)" stroke="#53717b" stroke-width="6"/><rect x="268" y="185" width="264" height="42" rx="18" fill="#344d58"/><path d="M325 250h150l-14 170c-5 35-25 54-61 54s-56-19-61-54l-14-170Z" fill="#9ac6c8" opacity=".7"/><rect x="270" y="520" width="260" height="105" rx="22" fill="#263b47"/><circle cx="400" cy="570" r="29" fill="#77b8c6"/><circle cx="400" cy="570" r="10" fill="#e8f2f3"/><path d="M345 625h110" stroke="#71909b" stroke-width="7" stroke-linecap="round"/>
+</svg>

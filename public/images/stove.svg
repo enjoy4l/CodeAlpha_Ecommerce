@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800">
+<defs><linearGradient id="stove" x1="0" x2="1"><stop stop-color="#424f58"/><stop offset="1" stop-color="#1e2931"/></linearGradient></defs>
+<rect width="800" height="800" fill="#eef2f4"/><ellipse cx="400" cy="665" rx="220" ry="24" fill="#cbd3d8" opacity=".55"/>
+<rect x="210" y="150" width="380" height="480" rx="18" fill="url(#stove)" stroke="#18232b" stroke-width="6"/><rect x="230" y="180" width="340" height="190" rx="9" fill="#111c23"/><circle cx="310" cy="245" r="48" fill="#2d3d45" stroke="#6c8590" stroke-width="5"/><circle cx="490" cy="245" r="48" fill="#2d3d45" stroke="#6c8590" stroke-width="5"/><circle cx="310" cy="245" r="20" fill="#121a1f"/><circle cx="490" cy="245" r="20" fill="#121a1f"/><rect x="250" y="405" width="300" height="170" rx="8" fill="#17242c" stroke="#657680" stroke-width="5"/><path d="M280 430h240" stroke="#a9c0c6" stroke-width="7" opacity=".6"/><circle cx="290" cy="600" r="13" fill="#79b9c5"/><circle cx="340" cy="600" r="13" fill="#79b9c5"/><circle cx="390" cy="600" r="13" fill="#79b9c5"/>
+</svg>
