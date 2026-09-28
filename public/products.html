@@ -11,7 +11,7 @@
 </head>
 <body>
   <header class="site-header">
-    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="category-menu" aria-label="Open categories">
+    <button class="menu-toggle" type="button" aria-expanded="true" aria-controls="category-menu" aria-label="Close categories">
       <span></span><span></span><span></span>
     </button>
     <a class="brand" href="/" aria-label="Abi's home">Abi's</a>
@@ -20,24 +20,11 @@
       <input id="product-search" type="search" placeholder="Search products" autocomplete="off">
     </label>
     <nav id="auth-nav" class="auth-nav" aria-label="Account navigation"></nav>
-    <nav id="category-menu" class="category-menu" aria-label="Category menu" hidden>
-      <a href="products.html">Shop all</a>
-      <a href="products.html?category=Refrigeration">Refrigeration</a>
-      <a href="products.html?category=Kitchen">Kitchen</a>
-      <a href="products.html?category=Entertainment">Entertainment</a>
-      <a href="products.html?category=Cleaning">Home care</a>
-    </nav>
   </header>
 
-  <main class="shop-page container">
-    <header class="shop-heading">
-      <div>
-        <p class="shop-heading__text">Browse dependable appliances and entertainment essentials for every room at home.</p>
-      </div>
-    </header>
-
+  <main class="shop-wantpage container">
     <div class="shop-layout">
-      <aside class="category-sidebar" aria-label="Shop by category">
+      <aside id="category-menu" class="category-sidebar" aria-label="Shop by category">
         <p class="sidebar-label">Shop by category</p>
         <div id="category-list" class="category-list">
           <button class="category-option active" type="button" data-category="All">All products <span></span></button>

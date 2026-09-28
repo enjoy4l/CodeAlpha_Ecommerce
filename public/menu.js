@@ -9,9 +9,4 @@ if (menuToggle && categoryMenu) {
     categoryMenu.hidden = isOpen;
   });
 
-  categoryMenu.addEventListener('click', () => {
-    menuToggle.setAttribute('aria-expanded', 'false');
-    menuToggle.setAttribute('aria-label', 'Open categories');
-    categoryMenu.hidden = true;
-  });
 }
