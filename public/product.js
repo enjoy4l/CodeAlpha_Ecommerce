@@ -119,7 +119,7 @@ async function loadRelatedProducts(product) {
   }
 }
 
-async function addToCart() {
+async function addToCart(button) {
   const token = localStorage.getItem('token');
 
   if (!token) {
@@ -142,6 +142,8 @@ async function addToCart() {
       throw new Error(result.message || 'Could not add this product.');
     }
 
+    button.textContent = 'Added to Cart';
+    button.disabled = true;
     showCartMessage('Added to your cart.');
   } catch (error) {
     showCartMessage(error.message, true);
@@ -172,7 +174,7 @@ function renderProduct(product) {
   addButton.className = 'primary-button';
   addButton.type = 'button';
   addButton.textContent = 'Add to Cart';
-  addButton.addEventListener('click', addToCart);
+  addButton.addEventListener('click', () => addToCart(addButton));
 
   content.append(heading, price, description, stock, addButton);
   productDetail.append(image, content);

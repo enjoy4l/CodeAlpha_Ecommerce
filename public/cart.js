@@ -79,16 +79,52 @@ function renderCart(cart) {
     price.className = 'price';
     price.textContent = `GH₵${Number(product.price).toFixed(2)} each`;
 
-    const quantityLabel = document.createElement('label');
+    const quantityGroup = document.createElement('div');
+    quantityGroup.className = 'cart-quantity-group';
+
+    const quantityLabel = document.createElement('span');
+    quantityLabel.className = 'quantity-label';
     quantityLabel.textContent = 'Quantity';
+
+    const quantityStepper = document.createElement('div');
+    quantityStepper.className = 'quantity-stepper';
+
+    const decreaseButton = document.createElement('button');
+    decreaseButton.type = 'button';
+    decreaseButton.className = 'quantity-stepper__button';
+    decreaseButton.textContent = '-';
+    decreaseButton.setAttribute('aria-label', `Decrease quantity of ${product.name}`);
+
     const quantityInput = document.createElement('input');
     quantityInput.type = 'number';
     quantityInput.min = '1';
     quantityInput.value = item.quantity;
+    quantityInput.setAttribute('aria-label', `Quantity of ${product.name}`);
     quantityInput.addEventListener('change', () => updateQuantity(product._id, quantityInput));
-    quantityLabel.append(quantityInput);
+
+    const increaseButton = document.createElement('button');
+    increaseButton.type = 'button';
+    increaseButton.className = 'quantity-stepper__button';
+    increaseButton.textContent = '+';
+    increaseButton.setAttribute('aria-label', `Increase quantity of ${product.name}`);
+
+    const changeQuantity = async (amount) => {
+      const nextQuantity = Number(quantityInput.value) + amount;
+      if (nextQuantity < 1) return;
+      quantityInput.value = nextQuantity;
+      await updateQuantity(product._id, quantityInput);
+    };
+
+    decreaseButton.addEventListener('click', () => changeQuantity(-1));
+    increaseButton.addEventListener('click', () => changeQuantity(1));
+    quantityStepper.append(decreaseButton, quantityInput, increaseButton);
+    quantityGroup.append(quantityLabel, quantityStepper);
+
+    const purchaseRow = document.createElement('div');
+    purchaseRow.className = 'cart-item-purchase-row';
 
     const subtotalText = document.createElement('p');
+    subtotalText.className = 'cart-subtotal';
     subtotalText.textContent = `Subtotal: GH₵${subtotal.toFixed(2)}`;
 
     const removeButton = document.createElement('button');
@@ -97,7 +133,8 @@ function renderCart(cart) {
     removeButton.textContent = 'Remove';
     removeButton.addEventListener('click', () => removeItem(product._id));
 
-    details.append(name, price, quantityLabel, subtotalText, removeButton);
+    purchaseRow.append(quantityGroup, subtotalText);
+    details.append(name, price, purchaseRow, removeButton);
     itemElement.append(image, details);
     cartItems.append(itemElement);
   });

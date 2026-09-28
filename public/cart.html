@@ -11,7 +11,7 @@
     <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="category-menu" aria-label="Open categories">
       <span></span><span></span><span></span>
     </button>
-    <a class="brand" href="/">Abi's Electronics</a>
+    <a class="brand" href="/" aria-label="Abi's home">Abi's</a>
     <a href="/">Continue shopping</a>
     <nav id="category-menu" class="category-menu" aria-label="Category menu" hidden>
       <a href="products.html">Shop all</a>
@@ -22,19 +22,50 @@
     </nav>
   </header>
 
-  <main class="container">
-    <section class="intro">
-      <p class="eyebrow">Your selection</p>
-      <h1>Shopping cart.</h1>
-    </section>
+  <main class="cart-page container">
+    <div class="cart-layout">
+      <section class="cart-content">
+        <section class="intro">
+          <p class="eyebrow">Your selection</p>
+          <h1>Shopping cart.</h1>
+        </section>
+        <p id="cart-status" class="status" role="status">Loading cart...</p>
+        <section id="cart-items" class="cart-items" aria-label="Cart items"></section>
+        <section id="cart-summary" class="cart-summary" hidden>
+          <p class="cart-total">Total <strong id="cart-total-amount">GH₵0.00</strong></p>
+          <button id="checkout-button" class="primary-button" type="button">Checkout</button>
+        </section>
+        <p id="cart-message" class="form-message" role="status" hidden></p>
+      </section>
 
-    <p id="cart-status" class="status" role="status">Loading cart...</p>
-    <section id="cart-items" class="cart-items" aria-label="Cart items"></section>
-    <section id="cart-summary" class="cart-summary" hidden>
-      <p class="cart-total">Total <strong id="cart-total-amount">GH₵0.00</strong></p>
-      <button id="checkout-button" class="primary-button" type="button">Checkout</button>
-    </section>
-    <p id="cart-message" class="form-message" role="status" hidden></p>
+      <aside class="cart-logistics" aria-label="Delivery information">
+        <p class="eyebrow">Delivery details</p>
+        <h2>Where should we deliver?</h2>
+
+        <div class="logistics-row">
+          <span>Deliver to</span>
+          <strong>Accra, Ghana</strong>
+        </div>
+        <div class="logistics-row">
+          <span>Estimated arrival</span>
+          <strong>1 - 2 business days</strong>
+        </div>
+        <div class="logistics-row">
+          <span>Delivery method</span>
+          <strong>Standard doorstep delivery</strong>
+        </div>
+
+        <div class="logistics-note">
+          <strong>Delivery from GH₵50</strong>
+          <p>Orders over GH₵3,500 qualify for free delivery on essentials.</p>
+        </div>
+
+        <div class="logistics-support">
+          <strong>Need help with delivery?</strong>
+          <p>Our local support team can help with delivery times, installation, and setup.</p>
+        </div>
+      </aside>
+    </div>
   </main>
 
   <footer class="site-footer">
