@@ -41,6 +41,9 @@ function createProductCard(product) {
   const card = document.createElement('a');
   card.className = 'product-card';
   card.href = `/product.html?id=${encodeURIComponent(product._id)}`;
+  card.addEventListener('click', () => {
+    sessionStorage.setItem('cartReturnUrl', `${window.location.pathname}${window.location.search}${window.location.hash}`);
+  });
 
   const image = document.createElement('img');
   image.src = product.imageUrl || 'https://placehold.co/600x600?text=HomeCore';

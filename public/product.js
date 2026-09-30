@@ -136,6 +136,11 @@ async function addToCart(button) {
       },
       body: JSON.stringify({ productId, quantity: 1 })
     });
+    if (response.status === 401) {
+      localStorage.removeItem('token');
+      window.location.href = 'login.html';
+      return;
+    }
     const result = await response.json();
 
     if (!response.ok) {

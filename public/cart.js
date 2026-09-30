@@ -4,7 +4,12 @@ const cartSummary = document.querySelector('#cart-summary');
 const cartTotalAmount = document.querySelector('#cart-total-amount');
 const checkoutButton = document.querySelector('#checkout-button');
 const cartMessage = document.querySelector('#cart-message');
+const continueShoppingLink = document.querySelector('#continue-shopping');
 const token = localStorage.getItem('token');
+
+if (continueShoppingLink) {
+  continueShoppingLink.href = sessionStorage.getItem('cartReturnUrl') || 'products.html';
+}
 
 if (!token) {
   window.location.href = 'login.html';
@@ -14,6 +19,14 @@ function showMessage(message, isError = false) {
   cartMessage.textContent = message;
   cartMessage.hidden = false;
   cartMessage.classList.toggle('error', isError);
+}
+
+function handleAuthenticationFailure(response) {
+  if (response.status !== 401) return false;
+
+  localStorage.removeItem('token');
+  window.location.href = 'login.html';
+  return true;
 }
 
 function showCheckoutConfirmation(order) {
@@ -149,6 +162,7 @@ async function loadCart() {
     const response = await fetch('/api/cart', {
       headers: { Authorization: `Bearer ${token}` }
     });
+    if (handleAuthenticationFailure(response)) return;
     const cart = await response.json();
 
     if (!response.ok) {
@@ -180,6 +194,7 @@ async function updateQuantity(productId, quantityInput) {
       },
       body: JSON.stringify({ quantity })
     });
+    if (handleAuthenticationFailure(response)) return;
     const cart = await response.json();
 
     if (!response.ok) {
@@ -198,6 +213,7 @@ async function removeItem(productId) {
       method: 'DELETE',
       headers: { Authorization: `Bearer ${token}` }
     });
+    if (handleAuthenticationFailure(response)) return;
     const cart = await response.json();
 
     if (!response.ok) {
@@ -218,6 +234,7 @@ async function checkout() {
       method: 'POST',
       headers: { Authorization: `Bearer ${token}` }
     });
+    if (handleAuthenticationFailure(response)) return;
     const order = await response.json();
 
     if (!response.ok) {
