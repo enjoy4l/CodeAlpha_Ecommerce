@@ -3,9 +3,15 @@ const cartStatus = document.querySelector('#cart-status');
 const cartSummary = document.querySelector('#cart-summary');
 const cartTotalAmount = document.querySelector('#cart-total-amount');
 const checkoutButton = document.querySelector('#checkout-button');
+const checkoutPanel = document.querySelector('#checkout-panel');
+const confirmCheckoutButton = document.querySelector('#confirm-checkout-button');
+const backToCartButton = document.querySelector('#back-to-cart-button');
 const cartMessage = document.querySelector('#cart-message');
 const continueShoppingLink = document.querySelector('#continue-shopping');
+const cartContent = document.querySelector('.cart-content');
 const token = localStorage.getItem('token');
+let lastCartItems = [];
+const orderViewId = new URLSearchParams(window.location.search).get('order');
 
 if (continueShoppingLink) {
   continueShoppingLink.href = sessionStorage.getItem('cartReturnUrl') || 'products.html';
@@ -30,7 +36,11 @@ function handleAuthenticationFailure(response) {
 }
 
 function showCheckoutConfirmation(order) {
-  cartItems.hidden = true;
+  checkoutPanel.hidden = true;
+  cartContent.classList.remove('checkout-ready');
+  cartContent.classList.add('checkout-complete');
+  cartItems.replaceChildren(...lastCartItems.map(createCheckoutItem));
+  cartItems.hidden = false;
   cartSummary.hidden = true;
   cartStatus.hidden = true;
   cartMessage.classList.remove('error');
@@ -45,7 +55,7 @@ function showCheckoutConfirmation(order) {
   continueShoppingButton.type = 'button';
   continueShoppingButton.textContent = 'Continue Shopping';
   continueShoppingButton.addEventListener('click', () => {
-    window.location.href = 'index.html';
+    window.location.href = 'products.html';
   });
 
   const ordersButton = document.createElement('button');
@@ -53,15 +63,72 @@ function showCheckoutConfirmation(order) {
   ordersButton.type = 'button';
   ordersButton.textContent = 'View My Orders';
   ordersButton.addEventListener('click', () => {
-    window.location.href = 'index.html';
+    window.location.href = `cart.html?order=${encodeURIComponent(order._id)}`;
   });
 
   confirmationActions.append(continueShoppingButton, ordersButton);
   cartMessage.insertAdjacentElement('afterend', confirmationActions);
 }
 
+function showCheckoutPage() {
+  cartContent.classList.add('checkout-ready');
+  cartSummary.hidden = true;
+  checkoutPanel.hidden = false;
+  cartMessage.hidden = true;
+}
+
+function returnToCart() {
+  cartContent.classList.remove('checkout-ready');
+  checkoutPanel.hidden = true;
+  cartSummary.hidden = false;
+}
+
+function createCheckoutItem(item) {
+  const product = item.product || item;
+  const itemElement = document.createElement('article');
+  itemElement.className = 'cart-item checkout-item';
+
+  const image = document.createElement('img');
+  image.src = product.imageUrl || 'https://placehold.co/240x240?text=Product';
+  image.alt = product.name;
+
+  const details = document.createElement('div');
+  details.className = 'cart-item-details';
+
+  const name = document.createElement('h2');
+  name.textContent = product.name;
+
+  const meta = document.createElement('div');
+  meta.className = 'checkout-item-meta';
+
+  const quantity = document.createElement('span');
+  quantity.textContent = `Quantity: ${item.quantity}`;
+
+  const price = document.createElement('strong');
+  price.textContent = `GH₵${Number(product.price).toFixed(2)}`;
+
+  meta.append(quantity, price);
+  details.append(name, meta);
+  itemElement.append(image, details);
+  return itemElement;
+}
+
+function renderOrderView(order) {
+  cartContent.classList.add('checkout-complete');
+  cartItems.replaceChildren(...order.items.map(createCheckoutItem));
+  cartItems.hidden = false;
+  cartSummary.hidden = true;
+  cartStatus.hidden = true;
+  cartMessage.classList.remove('error');
+  cartMessage.textContent = `Order ${order._id}. Total: GH₵${Number(order.totalAmount).toFixed(2)}`;
+  cartMessage.hidden = false;
+}
+
 function renderCart(cart) {
   cartItems.replaceChildren();
+  lastCartItems = cart.items || [];
+  cartContent.classList.remove('checkout-ready', 'checkout-complete');
+  checkoutPanel.hidden = true;
 
   if (!cart.items || cart.items.length === 0) {
     cartStatus.textContent = 'Your cart is empty.';
@@ -176,6 +243,25 @@ async function loadCart() {
   }
 }
 
+async function loadOrder(orderId) {
+  try {
+    const response = await fetch(`/api/orders/${encodeURIComponent(orderId)}`, {
+      headers: { Authorization: `Bearer ${token}` }
+    });
+    if (handleAuthenticationFailure(response)) return;
+    const order = await response.json();
+
+    if (!response.ok) {
+      throw new Error(order.message || 'Could not load this order.');
+    }
+
+    renderOrderView(order);
+  } catch (error) {
+    cartStatus.textContent = error.message;
+    cartStatus.classList.add('error');
+  }
+}
+
 async function updateQuantity(productId, quantityInput) {
   const quantity = Number(quantityInput.value);
 
@@ -249,5 +335,11 @@ async function checkout() {
   }
 }
 
-checkoutButton.addEventListener('click', checkout);
-loadCart();
+checkoutButton.addEventListener('click', showCheckoutPage);
+confirmCheckoutButton.addEventListener('click', checkout);
+backToCartButton.addEventListener('click', returnToCart);
+if (orderViewId) {
+  loadOrder(orderViewId);
+} else {
+  loadCart();
+}
